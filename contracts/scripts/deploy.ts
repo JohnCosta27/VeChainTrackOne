@@ -2,9 +2,9 @@ import { ethers } from "hardhat";
 
 async function deployMugshot() {
   const [owner] = await ethers.getSigners();
-  const lock = await ethers.getContractFactory("Lock");
+  const lock = await ethers.getContractFactory("Lock", owner);
 
-  const ecoEarnInstance = await lock.deploy(owner);
+  const ecoEarnInstance = await lock.deploy(30000000000000000n);
 
   const ecoEarnAddress = await ecoEarnInstance.getAddress();
 
