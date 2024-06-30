@@ -6,6 +6,7 @@ import {
   useWalletModal,
 } from "@vechain/dapp-kit-react";
 import { useEffect, useState } from "react";
+import { Card } from "./components/Card";
 
 const ONE_VET = 1_000_000_000_000_000_000;
 
@@ -80,9 +81,14 @@ export const App = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col items-center gap-16">
       <h1 className="text-xl">Fund Overview</h1>
-
+      <div className="flex gap-2">
+        <Card name="John's Waste Disposal" />
+        <Card name="Flynn's Farm" />
+        <Card name="Bad Company" />
+        <Card name="Dmani's Good Deeds" />
+      </div>
       <div className="buttonContainer">
         <WalletButton />
         <button onClick={open}>{buttonText}</button>
