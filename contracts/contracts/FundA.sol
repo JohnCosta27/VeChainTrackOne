@@ -64,7 +64,7 @@ contract SimpleDeposit {
 
       // Returns `totalReturn` times the percentage the user has invested as a share
       // of the total.
-      uint256 toWithdraw = totalReturn * (userDeposits[msg.sender] / totalInvestedCounter);
+      uint256 toWithdraw = (totalReturn * userDeposits[msg.sender]) / totalInvestedCounter;
       totalReturn -= toWithdraw;
       totalInvestedCounter -= userDeposits[msg.sender];
 

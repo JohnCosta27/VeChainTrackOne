@@ -1,7 +1,7 @@
 export const ONE_VET = 1_000_000_000_000_000_000;
 
 export const Contract = {
-  Address: "0x794a185a02e6322781815685bfdf69d3d60537eb",
+  Address: "0x30d25d63e19e0a0936fdae5f009e283935e9332e",
 
   InvestmentAccount: {
     Account2: "0x07Af697dcB622aD26D504cd3684868b8996Af017",

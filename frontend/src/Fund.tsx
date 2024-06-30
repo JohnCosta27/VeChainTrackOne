@@ -94,7 +94,9 @@ export const Fund: FC = () => {
       const totalInvestedCounter = decodeNumber(totalInvestedCounterData);
 
       const availableWithdraw =
-        Math.round((totalReturned / totalInvestedByMe) * 100) / 100;
+        Math.round(
+          totalReturned * (totalInvestedByMe / totalInvestedCounter) * 100,
+        ) / 100;
 
       console.log(totalInvestedCounter);
 
