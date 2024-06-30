@@ -102,7 +102,7 @@ export const Fund: FC = () => {
 
       const deposits = await contract.filters.DepositMade().get();
       const depositsMade = deposits[0].map((d) => ({
-        address: d.address,
+        address: d.decodedData?.at(0)!,
         amount: decodeNumber({
           decoded: { 0: Number(d.decodedData?.at(1)!) as any },
         }),
@@ -113,7 +113,7 @@ export const Fund: FC = () => {
         .get();
 
       const investmentReturns = investmentReturnsData[0].map((d) => ({
-        address: d.address,
+        address: d.decodedData?.at(0)!,
         amount: decodeNumber({
           decoded: { 0: Number(d.decodedData?.at(1)!) as any },
         }),
@@ -192,15 +192,15 @@ export const Fund: FC = () => {
       .request();
   };
 
-  const onInvest = async () => {
+  const onInvest = async (address: string) => {
     const clause = connex.thor
       .account(Contract.Address)
       .method(Contract.InvestFund)
-      .asClause(Contract.InvestmentAccount.Account2);
+      .asClause(address);
 
     await connex.vendor
       .sign("tx", [clause])
-      .comment(`Investing the fund in ${Contract.InvestmentAccount.Account2}`)
+      .comment(`Investing the fund in ${address}`)
       .request();
   };
 
@@ -215,6 +215,8 @@ export const Fund: FC = () => {
       .comment("Withdrawing your funds")
       .request();
   };
+
+  console.log(data);
 
   return (
     <div className="flex flex-col gap-4 items-center">
@@ -284,23 +286,31 @@ export const Fund: FC = () => {
         <InvestmentCard
           name="Solar Farm"
           impact={100}
-          onClick={() => {}}
+          onClick={() => onInvest(Contract.InvestmentAccount.SolarFarm)}
           reward={50}
         />
         <InvestmentCard
           name="Walmart Stock"
           impact={30}
-          onClick={() => {}}
+          onClick={() => onInvest(Contract.InvestmentAccount.SolarFarm)}
           reward={10}
         />
-        <InvestmentCard name="OPEC" impact={0} onClick={() => {}} reward={0} />
+        <InvestmentCard
+          name="OPEC"
+          impact={0}
+          onClick={() => onInvest(Contract.InvestmentAccount.Opec)}
+          reward={0}
+        />
       </div>
 
       <h2 className="font-bold text-xl">Investment Returns</h2>
       <div className="w-full flex flex-col gap-2">
         {data.investmentReturns.map((d) => (
           <div className="w-full flex justify-between">
-            <p>{d.address}</p>
+            <div className="flex flex-col">
+              <p>{d.address}</p>
+              <p>{Contract.ReverseInvestmentAccount[d.address]}</p>
+            </div>
             <p>{d.amount} VAT</p>
           </div>
         ))}

@@ -4,7 +4,15 @@ export const Contract = {
   Address: "0x45eb0c9cdfffb33d060966191b63760d6aea7c78",
 
   InvestmentAccount: {
-    Account2: "0x07Af697dcB622aD26D504cd3684868b8996Af017",
+    SolarFarm: "0x07Af697dcB622aD26D504cd3684868b8996Af017",
+    Walmart: "0xc7996Ce759327a48f9A631D287bd64951830C3a6",
+    Opec: "0x1D360947E44798107B3a6B991dc0340a3CE51CE9",
+  },
+
+  ReverseInvestmentAccount: {
+    "0x07Af697dcB622aD26D504cd3684868b8996Af017": "Solar Farm",
+    "0xc7996Ce759327a48f9A631D287bd64951830C3a6": "Walmart",
+    "0x1D360947E44798107B3a6B991dc0340a3CE51CE9": "Opec",
   },
 
   Deposit: {
