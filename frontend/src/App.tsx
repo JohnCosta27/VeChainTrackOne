@@ -81,7 +81,7 @@ export const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-16">
+    <div className="w-full h-full flex flex-col items-center gap-16 bg-[#FAFAFA]">
       <h1 className="text-xl">Fund Overview</h1>
       <div className="flex gap-2">
         <Card name="John's Waste Disposal" />
