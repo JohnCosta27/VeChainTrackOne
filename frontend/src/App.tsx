@@ -33,19 +33,6 @@ export const App = () => {
     onConnectionStatusChange(handleConnected);
   }, [account, onConnectionStatusChange]);
 
-  const transferToFund = async () => {
-    const clause = connex.thor
-      .account(Contract.Address)
-      .method(Contract.Deposit)
-      .value(1 * ONE_VET)
-      .asClause();
-
-    await connex.vendor
-      .sign("tx", [clause])
-      .comment("calling the adding thing")
-      .request();
-  };
-
   return (
     <div className="w-full h-full flex flex-col items-center gap-16 bg-[#FAFAFA]">
       <h1 className="text-xl">Fund Overview</h1>
@@ -58,7 +45,6 @@ export const App = () => {
       <div className="buttonContainer">
         <WalletButton />
         <button onClick={open}>{buttonText}</button>
-        <button onClick={transferToFund}>ADD LIQUIDITY</button>
       </div>
     </div>
   );

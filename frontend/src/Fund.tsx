@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { Cell, Pie, PieChart } from "recharts";
 import { useConnex } from "@vechain/dapp-kit-react";
-import { Contract, decodeNumber } from "./contract";
+import { Contract, ONE_VET, decodeNumber } from "./contract";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -43,6 +43,8 @@ export const Fund: FC = () => {
     totalReturned: 0,
   });
 
+  const [deposit, setDeposit] = useState(0);
+
   if (bruhh == null) {
     throw new Error("Bruh");
   }
@@ -73,6 +75,19 @@ export const Fund: FC = () => {
 
     fetchNumbers();
   }, []);
+
+  const onDeposit = async () => {
+    const clause = connex.thor
+      .account(Contract.Address)
+      .method(Contract.Deposit)
+      .value(deposit * ONE_VET)
+      .asClause();
+
+    await connex.vendor
+      .sign("tx", [clause])
+      .comment("calling the adding thing")
+      .request();
+  };
 
   const onInvest = async () => {
     const clause = connex.thor
@@ -107,6 +122,11 @@ export const Fund: FC = () => {
       <p>Deposited: {data.totalDeposited} VET</p>
       <p>Invested: {data.totalInvested} VET</p>
       <p>Returned: {data.totalReturned} VET</p>
+      <input
+        value={deposit}
+        onChange={(e) => setDeposit(parseFloat(e.target.value))}
+      />
+      <button onClick={onDeposit}>Deposit funds</button>
       <button onClick={onInvest}>Invest in Clean Energy!</button>
       <button onClick={onWithdraw}>Withdraw amount</button>
     </div>
