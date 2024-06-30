@@ -30,6 +30,7 @@ contract SimpleDeposit {
     function sendPayment(address payable recipient) public {
         (bool success, ) = recipient.call{value: totalDeposits}("");
         require(success, "Payment failed.");
+        require(totalDeposits > 0, "Fund does not have money.");
 
         investments[recipient] += totalDeposits;
 

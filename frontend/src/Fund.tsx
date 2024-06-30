@@ -96,7 +96,7 @@ export const Fund: FC = () => {
       const availableWithdraw =
         Math.round((totalReturned / totalInvestedByMe) * 100) / 100;
 
-      debugger;
+      console.log(totalInvestedCounter);
 
       setData({
         totalDeposited,
