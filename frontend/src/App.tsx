@@ -6,6 +6,7 @@ import {
   useWalletModal,
 } from "@vechain/dapp-kit-react";
 import { useEffect, useState } from "react";
+import index from "./index.css";
 
 const CONTRACT_ADDRESS = "0x65DAf03c74E62fB3561365C3482F92B94244f562";
 
@@ -55,11 +56,16 @@ export const App = () => {
   };
 
   return (
-    <div className="container">
+    <div>
+      <img src="/src/images/EasyP.png" alt="EasyP Logo" style={{ width: '25%'}} />
+
       <h2>Pension Manager</h2>
-      <WalletButton />
-      <button onClick={open}>{buttonText}</button>
-      <button onClick={callMethod}>Donate Funds</button>
+
+      <div className="buttonContainer">
+        <WalletButton />
+        <button onClick={open}>{buttonText}</button>
+        <button onClick={callMethod}>Donate Funds</button>
+      </div>
     </div>
   );
 };

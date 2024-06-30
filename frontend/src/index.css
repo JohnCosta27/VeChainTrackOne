@@ -2,4 +2,21 @@ body {
   margin: 0;
   padding: 0;
   background-color: #8EA8C3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+}
+
+.buttonContainer {
+  background-color: #cbf7ed;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 1%;
 }
