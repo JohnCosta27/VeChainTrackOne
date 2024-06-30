@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full h-full flex justify-center max-w-screen-lg">
       <DAppKitProvider
         nodeUrl={"https://testnet.vechain.org/"}
         genesis={"test"}

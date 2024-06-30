@@ -3,8 +3,10 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { Cell, Pie, PieChart } from "recharts";
 import { useConnex, useWallet } from "@vechain/dapp-kit-react";
-import { Contract, ONE_VET, decodeNumber } from "./contract";
+import { Contract, ONE_VET, decodeNumber, depositABI } from "./contract";
 import { GenericCard } from "./components";
+
+import { ThorClient } from "@vechain/sdk-network";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -77,6 +79,8 @@ export const Fund: FC = () => {
     totalInvestedByMe: 0,
     availableWithdraw: 0,
     totalInvestedCounter: 0,
+    depositsMade: [] as Array<{ address: string; amount: number }>,
+    investmentReturns: [] as Array<{ address: string; amount: number }>,
   });
 
   const [deposit, setDeposit] = useState(0);
@@ -93,6 +97,28 @@ export const Fund: FC = () => {
 
   useEffect(() => {
     async function fetchNumbers() {
+      const thorTestnet = ThorClient.fromUrl("https://testnet.vechain.org");
+      const contract = thorTestnet.contracts.load(Contract.Address, depositABI);
+
+      const deposits = await contract.filters.DepositMade().get();
+      const depositsMade = deposits[0].map((d) => ({
+        address: d.address,
+        amount: decodeNumber({
+          decoded: { 0: Number(d.decodedData?.at(1)!) as any },
+        }),
+      }));
+
+      const investmentReturnsData = await contract.filters
+        .InvestmentReturn()
+        .get();
+
+      const investmentReturns = investmentReturnsData[0].map((d) => ({
+        address: d.address,
+        amount: decodeNumber({
+          decoded: { 0: Number(d.decodedData?.at(1)!) as any },
+        }),
+      }));
+
       const fundAccount = connex.thor.account(Contract.Address);
 
       const getTotalDeposit = fundAccount.method(Contract.TotalDeposited);
@@ -138,6 +164,8 @@ export const Fund: FC = () => {
         totalInvestedByMe,
         availableWithdraw,
         totalInvestedCounter,
+        depositsMade,
+        investmentReturns,
       });
     }
 
@@ -266,6 +294,26 @@ export const Fund: FC = () => {
           reward={10}
         />
         <InvestmentCard name="OPEC" impact={0} onClick={() => {}} reward={0} />
+      </div>
+
+      <h2 className="font-bold text-xl">Investment Returns</h2>
+      <div className="w-full flex flex-col gap-2">
+        {data.investmentReturns.map((d) => (
+          <div className="w-full flex justify-between">
+            <p>{d.address}</p>
+            <p>{d.amount} VAT</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 className="font-bold text-xl">Deposits Made</h2>
+      <div className="w-full flex flex-col gap-2">
+        {data.depositsMade.map((d) => (
+          <div className="w-full flex justify-between">
+            <p>{d.address}</p>
+            <p>{d.amount} VAT</p>
+          </div>
+        ))}
       </div>
     </div>
   );

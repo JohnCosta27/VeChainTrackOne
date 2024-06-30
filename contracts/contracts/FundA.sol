@@ -17,6 +17,8 @@ contract SimpleDeposit {
     event DepositMade(address indexed sender, uint256 amount);
     event WithdrawMade(address indexed receiver, uint256 amount);
 
+    event InvestmentReturn(address indexed sender, uint256 amount);
+
     // Function to deposit currency into the contract
     function deposit() public payable {
         require(msg.value > 0, "Deposit amount must be greater than zero");
@@ -57,6 +59,8 @@ contract SimpleDeposit {
 
       totalReturn += msg.value;
       totalInvested -= investedAmount;
+
+      emit InvestmentReturn(msg.sender, msg.value);
     }
 
     function withdraw() public payable {
