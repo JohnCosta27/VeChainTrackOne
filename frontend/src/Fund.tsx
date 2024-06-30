@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { Cell, Pie, PieChart } from "recharts";
 import { useConnex } from "@vechain/dapp-kit-react";
 import { Contract, ONE_VET, decodeNumber } from "./contract";
+import { GenericCard } from "./components";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -51,6 +52,10 @@ export const Fund: FC = () => {
 
   const fundAddress = bruhh;
 
+  const interval = useRef<ReturnType<typeof setInterval> | undefined>(
+    undefined,
+  );
+
   useEffect(() => {
     async function fetchNumbers() {
       const fundAccount = connex.thor.account(Contract.Address);
@@ -73,7 +78,8 @@ export const Fund: FC = () => {
       setData({ totalDeposited, totalInvested, totalReturned });
     }
 
-    fetchNumbers();
+    clearInterval(interval.current);
+    interval.current = setInterval(fetchNumbers, 5000);
   }, []);
 
   const onDeposit = async () => {
@@ -117,16 +123,37 @@ export const Fund: FC = () => {
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold">Fund Name</h1>
       <h2>Address: {fundAddress}</h2>
-      <h3>Investments</h3>
-      <FundChart />
-      <p>Deposited: {data.totalDeposited} VET</p>
-      <p>Invested: {data.totalInvested} VET</p>
-      <p>Returned: {data.totalReturned} VET</p>
-      <input
-        value={deposit}
-        onChange={(e) => setDeposit(parseFloat(e.target.value))}
-      />
-      <button onClick={onDeposit}>Deposit funds</button>
+      <div className="flex gap-2">
+        <GenericCard>
+          <div className="flex flex-col gap-4 items-center">
+            <p className="font-bold text-lg">Invested</p>
+            <p className="text-md">{data.totalInvested}</p>
+          </div>
+        </GenericCard>
+        <GenericCard>
+          <div className="flex flex-col gap-4 items-center">
+            <p className="font-bold text-lg">Returned</p>
+            <p className="text-md">{data.totalReturned}</p>
+          </div>
+        </GenericCard>
+        <GenericCard>
+          <div className="flex flex-col gap-4 items-center">
+            <p className="font-bold text-lg">Deposited</p>
+            <p className="text-md">{data.totalDeposited}</p>
+          </div>
+        </GenericCard>
+      </div>
+      <div className="join">
+        <input
+          className="input input-bordered join-item"
+          placeholder="0"
+          value={deposit}
+          onChange={(e) => setDeposit(parseFloat(e.target.value))}
+        />
+        <button className="btn join-item rounded-r-full" onClick={onDeposit}>
+          Deposit
+        </button>
+      </div>
       <button onClick={onInvest}>Invest in Clean Energy!</button>
       <button onClick={onWithdraw}>Withdraw amount</button>
     </div>
