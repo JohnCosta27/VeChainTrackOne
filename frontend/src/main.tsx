@@ -1,10 +1,10 @@
 import React from "react";
 import { StrictMode } from "react";
-import "./index.css";
 import { App } from "./App";
 import { createRoot } from "react-dom/client";
 import { WalletConnectOptions } from "@vechain/dapp-kit";
 import { DAppKitProvider } from "@vechain/dapp-kit-react";
+import "./index.css";
 
 const walletConnectOptions: WalletConnectOptions = {
   projectId: "a0b855ceaf109dbc8426479a4c3d38d8",

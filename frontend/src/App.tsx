@@ -6,7 +6,6 @@ import {
   useWalletModal,
 } from "@vechain/dapp-kit-react";
 import { useEffect, useState } from "react";
-import index from "./index.css";
 
 const ONE_VET = 1_000_000_000_000_000_000;
 
@@ -81,8 +80,13 @@ export const App = () => {
   };
 
   return (
-    <div>
-      <img src="/src/images/EasyP.png" alt="EasyP Logo" style={{ width: '25%'}} />
+    <div className="te">
+      <p className="text-xl">bruh</p>
+      <img
+        src="/src/images/EasyP.png"
+        alt="EasyP Logo"
+        style={{ width: "25%" }}
+      />
 
       <h2>Pension Manager</h2>
 
