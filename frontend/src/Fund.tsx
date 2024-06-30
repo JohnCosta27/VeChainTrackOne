@@ -86,6 +86,18 @@ export const Fund: FC = () => {
       .request();
   };
 
+  const onWithdraw = async () => {
+    const clause = connex.thor
+      .account(Contract.Address)
+      .method(Contract.Withdraw)
+      .asClause();
+
+    await connex.vendor
+      .sign("tx", [clause])
+      .comment("Withdrawing your funds")
+      .request();
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold">Fund Name</h1>
@@ -96,6 +108,7 @@ export const Fund: FC = () => {
       <p>Invested: {data.totalInvested} VET</p>
       <p>Returned: {data.totalReturned} VET</p>
       <button onClick={onInvest}>Invest in Clean Energy!</button>
+      <button onClick={onWithdraw}>Withdraw amount</button>
     </div>
   );
 };

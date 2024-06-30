@@ -3,6 +3,9 @@ pragma solidity ^0.8.20;
 
 contract SimpleDeposit {
     uint256 public totalDeposits;
+
+    uint256 public totalInvestedCounter;
+
     uint256 public totalInvested;
     uint256 public totalReturn;
 
@@ -31,6 +34,8 @@ contract SimpleDeposit {
         investments[recipient] += totalDeposits;
 
         totalInvested += totalDeposits;
+        totalInvestedCounter += totalDeposits;
+
         totalDeposits = 0;
     }
 
@@ -58,8 +63,11 @@ contract SimpleDeposit {
 
       // Returns `totalReturn` times the percentage the user has invested as a share
       // of the total.
-      uint256 toWithdraw = totalReturn * (userDeposits[msg.sender] / totalInvested);
+      uint256 toWithdraw = totalReturn * (userDeposits[msg.sender] / totalInvestedCounter);
       totalReturn -= toWithdraw;
+      totalInvestedCounter -= userDeposits[msg.sender];
+
+      userDeposits[msg.sender] = 0;
 
       payable(msg.sender).transfer(toWithdraw);
 
