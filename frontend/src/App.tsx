@@ -84,10 +84,10 @@ export const App = () => {
     <div className="w-full h-full flex flex-col items-center gap-16 bg-[#FAFAFA]">
       <h1 className="text-xl">Fund Overview</h1>
       <div className="flex gap-2">
-        <Card name="John's Waste Disposal" />
-        <Card name="Flynn's Farm" />
-        <Card name="Bad Company" />
-        <Card name="Dmani's Good Deeds" />
+        <Card name="John's Waste Disposal" funds={100} address="abc" />
+        <Card name="Flynn's Farm" funds={200} address="dna" />
+        <Card name="Bad Company" funds={250} address="kmdslam" />
+        <Card name="Dmani's Good Deeds" funds={500} address="dnsajdnjk" />
       </div>
       <div className="buttonContainer">
         <WalletButton />

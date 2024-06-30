@@ -1,6 +1,8 @@
 import React from "react";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { Line, LineChart, ResponsiveContainer } from "recharts";
+import { GenericCard } from ".";
 
 const data = [
   {
@@ -41,13 +43,19 @@ const CardLineChart: FC = () => {
 
 type CardProps = {
   name: string;
+  funds: number;
+
+  address: string;
 };
 
 export const Card: FC<CardProps> = (props) => {
   return (
-    <div className="flex flex-col gap-4 bg-gray-800 text-zinc-200 rounded-xl p-4 font-bold">
-      <h2>{props.name}</h2>
-      <CardLineChart />
-    </div>
+    <Link to={`/fund/${props.address}`}>
+      <GenericCard>
+        <h2>{props.name}</h2>
+        <CardLineChart />
+        <span>Funds: {props.funds} VET</span>
+      </GenericCard>
+    </Link>
   );
 };
