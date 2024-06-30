@@ -34,6 +34,37 @@ const FundChart: FC = () => {
   );
 };
 
+const InvestmentCard: FC<{
+  name: string;
+  impact: number;
+  reward: number;
+  onClick: () => void;
+}> = ({ name, impact, reward, onClick }) => (
+  <div className="w-full flex">
+    <div className="w-full flex-col gap-2">
+      <p className="text-md font-bold">{name}</p>
+      <p>
+        Impact -{" "}
+        <span
+          className={
+            impact > 75
+              ? "text-success"
+              : impact > 25
+                ? "text-warning"
+                : "text-error"
+          }
+        >
+          {impact}
+        </span>
+      </p>
+      <p>B3TTER reward - {reward}</p>
+    </div>
+    <button className="btn btn-secondary" onClick={onClick}>
+      Vote
+    </button>
+  </div>
+);
+
 export const Fund: FC = () => {
   const { fundAddress: bruhh } = useParams();
   const connex = useConnex();
@@ -158,7 +189,7 @@ export const Fund: FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 items-center">
       <h1 className="text-3xl font-bold">Fund Name</h1>
       <h2>Address: {fundAddress}</h2>
       <div className="flex gap-2 w-full">
@@ -199,9 +230,9 @@ export const Fund: FC = () => {
           </div>
         </GenericCard>
       </div>
-      <div className="join">
+      <div className="join w-full">
         <input
-          className="input input-bordered join-item"
+          className="w-full input input-bordered join-item"
           placeholder="0"
           value={deposit}
           onChange={(e) => setDeposit(parseFloat(e.target.value))}
@@ -210,8 +241,32 @@ export const Fund: FC = () => {
           Deposit
         </button>
       </div>
-      <button onClick={onInvest}>Invest in Clean Energy!</button>
-      <button onClick={onWithdraw}>Withdraw amount</button>
+
+      <div className="flex gap-2 w-full">
+        <div className="w-full">
+          <button className="w-full btn btn-primary" onClick={onWithdraw}>
+            Withdraw
+          </button>
+        </div>
+      </div>
+
+      <h2 className="font-bold text-xl">Vote to Invest</h2>
+
+      <div className="w-full flex flex-col gap-2">
+        <InvestmentCard
+          name="Solar Farm"
+          impact={100}
+          onClick={() => {}}
+          reward={50}
+        />
+        <InvestmentCard
+          name="Walmart Stock"
+          impact={30}
+          onClick={() => {}}
+          reward={10}
+        />
+        <InvestmentCard name="OPEC" impact={0} onClick={() => {}} reward={0} />
+      </div>
     </div>
   );
 };
