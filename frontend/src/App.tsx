@@ -80,15 +80,8 @@ export const App = () => {
   };
 
   return (
-    <div className="te">
-      <p className="text-xl">bruh</p>
-      <img
-        src="/src/images/EasyP.png"
-        alt="EasyP Logo"
-        style={{ width: "25%" }}
-      />
-
-      <h2>Pension Manager</h2>
+    <div className="flex">
+      <h1 className="text-xl">Fund Overview</h1>
 
       <div className="buttonContainer">
         <WalletButton />
