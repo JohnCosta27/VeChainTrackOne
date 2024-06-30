@@ -7,6 +7,7 @@ import { DAppKitProvider } from "@vechain/dapp-kit-react";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Fund } from "./Fund";
+import { Admin } from "./Admin";
 
 const walletConnectOptions: WalletConnectOptions = {
   projectId: "a0b855ceaf109dbc8426479a4c3d38d8",
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
   {
     path: "/fund/:fundAddress",

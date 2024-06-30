@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { GenericCard } from "./components";
-import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
+import { useConnex } from "@vechain/dapp-kit-react";
+import { Contract, decodeNumber } from "./contract";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -33,8 +34,57 @@ const FundChart: FC = () => {
 };
 
 export const Fund: FC = () => {
-  const { fundAddress } = useParams();
-  console.log(fundAddress);
+  const { fundAddress: bruhh } = useParams();
+  const connex = useConnex();
+
+  const [data, setData] = useState({
+    totalDeposited: 0,
+    totalInvested: 0,
+    totalReturned: 0,
+  });
+
+  if (bruhh == null) {
+    throw new Error("Bruh");
+  }
+
+  const fundAddress = bruhh;
+
+  useEffect(() => {
+    async function fetchNumbers() {
+      const fundAccount = connex.thor.account(Contract.Address);
+
+      const getTotalDeposit = fundAccount.method(Contract.TotalDeposited);
+      const getTotalInvested = fundAccount.method(Contract.TotalInvested);
+      const getTotalReturned = fundAccount.method(Contract.TotalReturn);
+
+      const [totalDepositedData, totalInvestedData, totalReturnData] =
+        await Promise.all([
+          getTotalDeposit.call(),
+          getTotalInvested.call(),
+          getTotalReturned.call(),
+        ]);
+
+      const totalDeposited = decodeNumber(totalDepositedData);
+      const totalInvested = decodeNumber(totalInvestedData);
+      const totalReturned = decodeNumber(totalReturnData);
+
+      setData({ totalDeposited, totalInvested, totalReturned });
+    }
+
+    fetchNumbers();
+  }, []);
+
+  const onInvest = async () => {
+    const clause = connex.thor
+      .account(Contract.Address)
+      .method(Contract.InvestFund)
+      .asClause(Contract.InvestmentAccount.Account2);
+
+    await connex.vendor
+      .sign("tx", [clause])
+      .comment(`Investing the fund in ${Contract.InvestmentAccount.Account2}`)
+      .request();
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,6 +92,10 @@ export const Fund: FC = () => {
       <h2>Address: {fundAddress}</h2>
       <h3>Investments</h3>
       <FundChart />
+      <p>Deposited: {data.totalDeposited} VET</p>
+      <p>Invested: {data.totalInvested} VET</p>
+      <p>Returned: {data.totalReturned} VET</p>
+      <button onClick={onInvest}>Invest in Clean Energy!</button>
     </div>
   );
 };
