@@ -8,12 +8,25 @@ import {
 import { useEffect, useState } from "react";
 import index from "./index.css";
 
-const CONTRACT_ADDRESS = "0x65DAf03c74E62fB3561365C3482F92B94244f562";
+const ONE_VET = 1_000_000_000_000_000_000;
 
-const contractABI = {
+const FUND_ADDRESS = "0x8A7232b6a9c76D9f4bBa7D6a5c652aa37e8A9482";
+const TEST_INVESTMENT_WALLET = "0x07Af697dcB622aD26D504cd3684868b8996Af017";
+
+const ADD_FUNDS = {
   inputs: [],
-  name: "withdraw",
   outputs: [],
+  name: "deposit",
+  stateMutability: "payable",
+  type: "function",
+};
+
+const INVEST = {
+  inputs: [
+    { internalType: "address payable", name: "recipient", type: "address" },
+  ],
+  outputs: [],
+  name: "sendPayment",
   stateMutability: "nonpayable",
   type: "function",
 };
@@ -42,16 +55,28 @@ export const App = () => {
     onConnectionStatusChange(handleConnected);
   }, [account, onConnectionStatusChange]);
 
-  const callMethod = async () => {
+  const transferToFund = async () => {
     const clause = connex.thor
-      .account(CONTRACT_ADDRESS)
-      .method(contractABI)
+      .account(FUND_ADDRESS)
+      .method(ADD_FUNDS)
+      .value(1 * ONE_VET)
       .asClause();
 
-    // making the transaction
-    const result = await connex.vendor
+    await connex.vendor
       .sign("tx", [clause])
-      .comment("calling the store function")
+      .comment("calling the adding thing")
+      .request();
+  };
+
+  const investFund = async () => {
+    const clause = connex.thor
+      .account(FUND_ADDRESS)
+      .method(INVEST)
+      .asClause(TEST_INVESTMENT_WALLET);
+
+    await connex.vendor
+      .sign("tx", [clause])
+      .comment("calling the adding thing")
       .request();
   };
 
@@ -64,7 +89,8 @@ export const App = () => {
       <div className="buttonContainer">
         <WalletButton />
         <button onClick={open}>{buttonText}</button>
-        <button onClick={callMethod}>Donate Funds</button>
+        <button onClick={transferToFund}>ADD LIQUIDITY</button>
+        <button onClick={investFund}>INVEST FUND</button>
       </div>
     </div>
   );

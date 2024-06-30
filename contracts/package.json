@@ -12,10 +12,12 @@
   "dependencies": {
     "@nomiclabs/hardhat-truffle5": "^2.0.7",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "@openzeppelin/contracts": "^5.0.2",
     "@vechain/hardhat-vechain": "^0.1.9",
     "@vechain/sdk-hardhat-plugin": "1.0.0-beta.18",
     "dotenv": "^16.4.5",
-    "hardhat": "^2.22.5"
+    "hardhat": "^2.22.5",
+    "openzeppelin-solidity": "^3.4.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",

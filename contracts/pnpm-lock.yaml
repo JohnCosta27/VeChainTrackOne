@@ -14,6 +14,9 @@ importers:
       '@nomiclabs/hardhat-waffle':
         specifier: ^2.0.6
         version: 2.0.6(@nomiclabs/hardhat-ethers@2.2.3(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.5(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))(typescript@5.5.2)(utf-8-validate@5.0.10)))(@types/sinon-chai@3.2.12)(ethereum-waffle@4.0.10(@ensdomains/ens@0.4.5)(@ensdomains/resolver@0.2.4)(@ethersproject/abi@5.7.0)(@ethersproject/providers@5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(typescript@5.5.2))(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(hardhat@2.22.5(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))(typescript@5.5.2)(utf-8-validate@5.0.10))
+      '@openzeppelin/contracts':
+        specifier: ^5.0.2
+        version: 5.0.2
       '@vechain/hardhat-vechain':
         specifier: ^0.1.9
         version: 0.1.9(bufferutil@4.0.8)(hardhat@2.22.5(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))(typescript@5.5.2)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
@@ -26,6 +29,9 @@ importers:
       hardhat:
         specifier: ^2.22.5
         version: 2.22.5(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))(typescript@5.5.2)(utf-8-validate@5.0.10)
+      openzeppelin-solidity:
+        specifier: ^3.4.2
+        version: 3.4.2
     devDependencies:
       '@nomicfoundation/hardhat-chai-matchers':
         specifier: ^2.0.0
@@ -547,6 +553,9 @@ packages:
       web3-core-promievent: ^1.2.1
       web3-eth-abi: ^1.2.1
       web3-utils: ^1.2.1
+
+  '@openzeppelin/contracts@5.0.2':
+    resolution: {integrity: sha512-ytPc6eLGcHHnapAZ9S+5qsdomhjo6QBHTDRRBFfTxXIpsicMhVPouPgmUPebZZZGX7vt9USA+Z+0M0dSVtSUEA==}
 
   '@resolver-engine/core@0.3.3':
     resolution: {integrity: sha512-eB8nEbKDJJBi5p5SrvrvILn4a0h42bKtbCTri3ZxCGt6UvoQyp7HnGOfki944bUjBSHKK3RvgfViHn+kqdXtnQ==}
@@ -2737,6 +2746,9 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
+  openzeppelin-solidity@3.4.2:
+    resolution: {integrity: sha512-mpk74A6Bo+/ISfalUqtD8bAfINQgkGH2yInUFn/uBYz1pXbefwMTApjlnCYr+HpQpeOgO7nO8deJYrzBGDFDMA==}
+
   optionator@0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
@@ -4745,6 +4757,8 @@ snapshots:
       - encoding
       - supports-color
       - utf-8-validate
+
+  '@openzeppelin/contracts@5.0.2': {}
 
   '@resolver-engine/core@0.3.3':
     dependencies:
@@ -7396,6 +7410,8 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+
+  openzeppelin-solidity@3.4.2: {}
 
   optionator@0.8.3:
     dependencies:
