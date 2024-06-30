@@ -49,6 +49,14 @@ export const Contract = {
     type: "function",
   },
 
+  TotalOriginalInvested: {
+    inputs: [],
+    name: "totalInvestedCounter",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+
   Withdraw: {
     inputs: [],
     name: "withdraw",
@@ -62,6 +70,30 @@ export const Contract = {
     name: "recievePayment",
     outputs: [],
     stateMutability: "payable",
+    type: "function",
+  },
+
+  UserDeposit: {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "userDeposits",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+
+  Investments: {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "investments",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+
+  InvestmentsReturns: {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "investmentsReturns",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
     type: "function",
   },
 };
