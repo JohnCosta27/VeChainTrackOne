@@ -56,12 +56,10 @@ export const App = () => {
 
   return (
     <div className="container">
-      <h2>React JS</h2>
-      <div className="label">kit button:</div>
+      <h2>Pension Manager</h2>
       <WalletButton />
-      <div className="label">custom button:</div>
       <button onClick={open}>{buttonText}</button>
-      <button onClick={callMethod}>fuck around and find out.</button>
+      <button onClick={callMethod}>Donate Funds</button>
     </div>
   );
 };
