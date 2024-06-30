@@ -116,6 +116,8 @@ export const Fund: FC = () => {
 
     clearInterval(interval.current);
     interval.current = setInterval(fetchNumbers, 5000);
+
+    fetchNumbers();
   }, [account]);
 
   const onDeposit = async () => {
@@ -189,7 +191,11 @@ export const Fund: FC = () => {
         <GenericCard>
           <div className="flex flex-col gap-4 items-center">
             <p className="font-bold text-lg">Available Withdraw</p>
-            <p className="text-md">{data.availableWithdraw}</p>
+            <p className="text-md">
+              {Number.isNaN(data.availableWithdraw)
+                ? "-"
+                : data.availableWithdraw}
+            </p>
           </div>
         </GenericCard>
       </div>
